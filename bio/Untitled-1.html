@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[[TESTING]]</title>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .custom-cursor {
+            width: 15px;
+            height: 15px;
+            position: absolute;
+            background: #58a6ff;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            transition: transform 0.1s ease-out;
+        }
+
+        .light-trail {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
+            border-radius: 50%;
+            opacity: 0.9;
+            animation: fade-out 2s forwards;
+        }
+
+        @keyframes fade-out {
+            to {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .aurora {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent),
+                        linear-gradient(120deg, rgba(2, 116, 117, 0.5), transparent);
+            mix-blend-mode: overlay;
+            animation: aurora-move 15s infinite linear;
+        }
+
+        @keyframes aurora-move {
+            from {
+                transform: translateX(-50%) translateY(-50%);
+            }
+            to {
+                transform: translateX(50%) translateY(50%);
+            }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(22, 27, 34, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 600px;
+            border: 1px solid #30363d;
+            animation: fade-in 2s;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .profile-video {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #58a6ff;
+        }
+
+        .profile-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-video:hover video {
+            transform: scale(1.1);
+            transition: transform 0.5s ease;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: 36px;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            animation: typewriter 4s steps(20) 1 normal both;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #58a6ff;
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        p {
+            font-size: 18px;
+            color: #8b949e;
+            margin: 5px 0;
+            opacity: 0;
+            animation: fade-in 2s forwards 4s;
+        }
+
+        .badges {
+            margin: 20px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            margin: 5px;
+            position: relative;
+            width: 40px;
+            height: 40px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #30363d;
+            transition: transform 0.2s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.2);
+        }
+
+        .badge::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #30363d;
+            color: white;
+            font-size: 12px;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .badge:hover::after {
+            opacity: 1;
+        }
+
+        .uid {
+            background-image: url('uid.png');
+        }
+
+        .developer {
+            background-image: url('developer.png');
+        }
+
+        .owner {
+            background-image: url('owner.png');
+        }
+
+        .admin {
+            background-image: url('admin.png');
+        }
+
+        .links {
+            margin: 20px 0;
+        }
+
+        .links a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #21262d;
+            border-radius: 5px;
+            font-size: 14px;
+            border: 1px solid #30363d;
+            transition: background-color 0.3s ease;
+        }
+
+        .links a i {
+            margin-right: 8px;
+        }
+
+        .links a:hover {
+            background-color: #58a6ff;
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background-color: #58a6ff;
+            transition: width 0.2s ease;
+        }
+
+        /* Seasonal Effects */
+        .seasonal-snow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .snowflake {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: fall 5s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="custom-cursor"></div>
+
+    <div class="background">
+        <div class="aurora"></div>
+        <video autoplay loop class="background-video">
+            <source src="background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div id="seasonal-effects" class="seasonal-snow"></div>
+
+    <div class="container">
+        <div class="profile-video">
+            <video autoplay loop muted>
+                <source src="profile.mov" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <h1>o9am</h1>
+        <p>Short bio about yourself goes here. Keep it simple and concise!</p>
+
+        <div class="badges">
+            <span class="badge uid" data-title="Unique Identifier"></span>
+            <span class="badge developer" data-title="Developer Role"></span>
+            <span class="badge owner" data-title="Owner Role"></span>
+            <span class="badge admin" data-title="Administrator Role"></span>
+        </div>
+
+        <div class="links">
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i>Twitter</a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i>GitHub</a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i>LinkedIn</a>
+            <a href="#" title="Portfolio"><i class="fas fa-briefcase"></i>Portfolio</a>
+        </div>
+    </div>
+
+    <div class="progress-bar"></div>
+
+    <script>
+        const cursor = document.querySelector('.custom-cursor');
+        const body = document.body;
+        const progressBar = document.querySelector('.progress-bar');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX + 'px';
+            cursor.style.top = e.pageY + 'px';
+
+            const trail = document.createElement('div');
+            trail.classList.add('light-trail');
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            body.appendChild(trail);
+
+            setTimeout(() => {
+                body.removeChild(trail);
+            }, 2000);
+        });
+
+        document.addEventListener('scroll', () => {
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / scrollableHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Seasonal Effects
+        const seasonalEffects = document.getElementById('seasonal-effects');
+
+        function generateSnowflakes() {
+            for (let i = 0; i < 100; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                seasonalEffects.appendChild(snowflake);
+
+                setTimeout(() => {
+                    seasonalEffects.removeChild(snowflake);
+                }, 5000);
+            }
+        }
+
+        setInterval(generateSnowflakes, 500);
+    </script>
+</body>
+</html>
